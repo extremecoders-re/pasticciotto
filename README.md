@@ -1,3 +1,6 @@
+![TravisCI]
+
+------------------
 ![Pasticciotto]
 
 # What is this?
@@ -94,13 +97,13 @@ void foo() {
     VM vm(key, code, codelen);
 
     // accessing the data section
-    printf("First data byte: 0x%x", VM.as.data[0]);
+    printf("First data byte: 0x%x", VM.addrSpace()->getData()[0]);
     // accessing the code section
-    printf("First code byte: 0x%x", VM.as.code[0]);    
+    printf("First code byte: 0x%x", VM.addrSpace()->getCode()[0]);    
     // accessing the stack section
-    printf("First stack byte: 0x%x", VM.as.stack[0]);
+    printf("First stack byte: 0x%x", VM.addrSpace()->getStack()[0]);
     // accessing the IP register
-    printf("The IP is: 0x%x", VM.regs[IP]);
+    printf("The IP is: 0x%x", VM.regs(IP));
     return;
 }
 ```
@@ -108,6 +111,19 @@ void foo() {
 
 # What about the challenge?
 You can find the client and the server under the `polictf/` directory. I have also written a small writeup. Check it out!
+
+# Compiling
+
+These are the presets in the `Makefile`:
+
+1. `all` will compile the emulator and the PoliCTF server/client **WITHOUT** debug symbols. (default)
+2. `emulator` will compile only the emulator **WITHOUT** debug symbols.
+3. `polictf` will compile only the PoliCTF server/client **WITHOUT** debug symbols.
+4. `debug` will compile the emulator and the PoliCTF server/client **WITH** debug symbols.
+5. `test` will compile and run the tests in the `tests/` directory.
+
+So, to get up and running it's enough to run:
+> `$ make`
 
 # Implementation details
 Check out the file [IMPLEMENTATION.MD](./IMPLEMENTATION.md) to understand how the VM works and which operations it can do! Watch out for some spoilers if you haven't completed the challenge though!
@@ -139,3 +155,4 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 DEALINGS IN THE SOFTWARE.
 ```
 [Pasticciotto]: ./res/pasticciotto.png
+[TravisCI]: https://travis-ci.org/peperunas/pasticciotto.svg?branch=master
